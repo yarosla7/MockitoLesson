@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 @EqualsAndHashCode
 @ToString
@@ -12,7 +11,7 @@ public class User {
 
     private final String name;
     private final int yearOfBorn;
-    private int years;
+    private final int years;
 
     public User(String name, int yearOfBorn) {
         this.name = name;

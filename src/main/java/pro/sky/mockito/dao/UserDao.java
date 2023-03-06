@@ -3,7 +3,6 @@ package pro.sky.mockito.dao;
 import pro.sky.mockito.model.User;
 
 import java.util.List;
-import java.util.Set;
 
 public interface UserDao {
     /**
