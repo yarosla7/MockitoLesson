@@ -1,41 +1,34 @@
 package pro.sky.mockito.services.impl;
 
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pro.sky.mockito.dao.impl.UserDaoImpl;
+import pro.sky.mockito.dao.UserDao;
 import pro.sky.mockito.model.User;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
+import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
     @Mock
-    private UserDaoImpl dao;
-
+    private UserDao dao;
+    @InjectMocks
     private UserServiceImpl out;
 
-    public UserServiceImplTest() {
-        UserServiceImpl userService = new UserServiceImpl(dao);
-    }
-    @Before public void initMocks(){
-        MockitoAnnotations.initMocks(this);
-    }
-
-    private static final User CORRECT_USER = new User("Алиса", 2000);
-    private static final User WRONG_USER = new User("Паркер", 1999);
 
     @Test
-    void checkUserExistShouldReturnTrue() {
-        when(out.checkUserExist(CORRECT_USER)).thenReturn(dao.findAllUsers().contains(CORRECT_USER));
+    void checkUserExist_existingUser_returnsTrue() {
+        User existingUser = new User("Алиса", 2000);
+        Mockito.when(dao.getUserByName(existingUser.getName())).thenReturn(existingUser);
+        assertTrue(out.checkUserExist(existingUser));
     }
 
     @Test
-    void checkUserExist2() {
+    void checkUserExist_nonExistingUser_returnsFalse() {
+        User nonExistingUser = new User("Паркер", 1999);
+        Mockito.when(dao.getUserByName(nonExistingUser.getName())).thenReturn(null);
+        assertFalse(out.checkUserExist(nonExistingUser));
     }
 }

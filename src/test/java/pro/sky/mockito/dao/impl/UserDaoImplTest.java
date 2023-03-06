@@ -15,7 +15,6 @@ class UserDaoImplTest {
     @Test
     void shouldReturnTrueWhenGetUserByName() {
         assertEquals(u, out.getUserByName(u.getName()));
-        assertNotNull(out.getUserByName(u.getName()));
     }
 
     @Test

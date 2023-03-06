@@ -19,8 +19,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByName(String name) {
         for (User user: userList) {
-            String userName = user.getName();
-            if (name.equals(userName)) {
+            if (user.getName().equals(name)) {
                 return user;
             }
         }
